@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+    arxiv_server:
+        build: .
+        container_name: arxiv_server
+        restart: unless-stopped
+        ports:
+            - 9097:9097
+        volumes:
+            - .:/app
