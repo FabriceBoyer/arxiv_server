@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var root_path = "./dump/"
+var root_path = utils.GetEnv("DUMP_PATH", "./dump/")
 
 var mgr = arxiv.ArxivMetadataManager{Root_path: root_path}
 

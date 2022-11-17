@@ -3,7 +3,8 @@
 # Common utils
 wget_cmd="wget -q --show-progress --limit-rate=10M"
 
-out_dir=$(dirname -- "$0")/dump
+source $(dirname -- "$0")/.env
+out_dir=$DUMP_PATH
 mkdir $out_dir
 
 # Arxiv Metadata
