@@ -18,18 +18,24 @@ const dataFileName = "arxiv-metadata-oai.json"
 const indexFileName = "arxiv-metadata-index.txt"
 const indexSeparator = ":"
 
+type ArxivMetadataVersion struct {
+	Version string `json:"version"`
+	Created string `json:"created"`
+}
 type ArxivMetadata struct {
-	Id         string   `json:"id"`
-	Submitter  string   `json:"submitter"`
-	Authors    string   `json:"authors"`
-	Title      string   `json:"title"`
-	Comments   string   `json:"comments"`
-	JournalRef string   `json:"journal-ref"`
-	Doi        string   `json:"doi"`
-	Abstract   string   `json:"abstract"`
-	ReportNo   string   `json:"report-no"`
-	Categories []string `json:"categories"`
-	Versions   []string `json:"versions"`
+	Id            string                 `json:"id"`
+	Submitter     string                 `json:"submitter"`
+	Authors       string                 `json:"authors"`
+	Title         string                 `json:"title"`
+	Comments      string                 `json:"comments"`
+	JournalRef    string                 `json:"journal-ref"`
+	Doi           string                 `json:"doi"`
+	Abstract      string                 `json:"abstract"`
+	ReportNo      string                 `json:"report-no"`
+	Categories    string                 `json:"categories"`
+	Versions      []ArxivMetadataVersion `json:"versions"`
+	UpdateDate    string                 `json:"update_date"`
+	AuthorsParsed [][]string             `json:"authors_parsed"`
 }
 
 type ArxivMetadataIndex struct {
@@ -54,11 +60,14 @@ func (mgr *ArxivMetadataManager) InitializeManager() error {
 	}
 	if regenerate {
 		fmt.Print("Index file missing or out of date, regenerating...\n")
-		mgr.generateArxivMetadataIndex()
+		err = mgr.generateArxivMetadataIndex()
+		if err != nil {
+			return err
+		}
 	} else {
 		fmt.Print("Reusing existing file index\n")
 	}
-	mgr.readArxivMetadataIndex()
+	err = mgr.readArxivMetadataIndex()
 	if err != nil {
 		return err
 	}
