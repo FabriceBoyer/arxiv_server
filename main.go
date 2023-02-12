@@ -27,22 +27,17 @@ func main() {
 
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", handleHomePage)
-	router.HandleFunc("/search/{id}", utils.ErrorHandler(handleSearch))
-	router.HandleFunc("/id/{id}", utils.ErrorHandler(handlePage))
+	router.Handle("/", http.FileServer(http.Dir("./static")))
+	router.HandleFunc("/search", utils.ErrorHandler(handleSearch))
+	router.HandleFunc("/id", utils.ErrorHandler(handlePage))
 
 	log.Fatal(http.ListenAndServe(":9097", router))
 }
 
-func handleHomePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to arxiv server, please use API")
-}
-
 func handleSearch(w http.ResponseWriter, r *http.Request) error {
-	// vars := mux.Vars(r)
-	// key := vars["id"]
+	// id := r.URL.Query().Get("page")
 
-	// titles, err := arxiv.SearchTitles(key)
+	// titles, err := arxiv.SearchTitles(id)
 	// if err != nil {
 	// 	return err
 	// }
@@ -56,9 +51,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) error {
 }
 
 func handlePage(w http.ResponseWriter, r *http.Request) error {
-	//articleName := wikitext.URLToTitle(path.Base(r.URL.Path))
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := r.URL.Query().Get("page")
 
 	elm, err := mgr.GetIndexedArxivMetadata(id)
 	if err != nil {
