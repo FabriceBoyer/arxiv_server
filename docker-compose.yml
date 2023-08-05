@@ -8,5 +8,8 @@ services:
         restart: unless-stopped
         ports:
             - 9097:9097
+        environment:
+            - DUMP_PATH=/dump
         volumes:
-            - .:/app
+            - $DUMP_PATH:/dump
+
