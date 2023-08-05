@@ -1,4 +1,4 @@
-module example.com/arxiv_server
+module arxiv_server
 
 go 1.20
 

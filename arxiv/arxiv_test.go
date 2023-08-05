@@ -6,11 +6,13 @@ import (
 	"strings"
 	"testing"
 
+	"arxiv_server/utils"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func newArxivManager() ArxivMetadataManager {
-	return ArxivMetadataManager{Root_path: "../dump"}
+	return ArxivMetadataManager{Root_path: utils.GetEnv("DUMP_PATH", "./dump/")}
 }
 func TestArxivMetadataSearch(t *testing.T) {
 	mgr := newArxivManager()

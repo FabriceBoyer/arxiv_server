@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"example.com/arxiv_server/arxiv"
-	"example.com/arxiv_server/utils"
+	"arxiv_server/arxiv"
+	"arxiv_server/utils"
 
 	"github.com/gorilla/mux"
 )
