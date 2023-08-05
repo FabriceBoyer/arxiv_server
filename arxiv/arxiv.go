@@ -38,6 +38,15 @@ type ArxivMetadata struct {
 	AuthorsParsed [][]string             `json:"authors_parsed"`
 }
 
+func (m *ArxivMetadata) String() string {
+	jsonBytes, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return fmt.Sprint("Error:", err)
+	}
+
+	return string(jsonBytes)
+}
+
 type ArxivMetadataIndex struct {
 	seek int64
 	id   string
