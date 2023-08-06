@@ -59,7 +59,7 @@ func handlePage(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	val, err := json.Marshal(elm)
+	val, err := json.MarshalIndent(elm, "", " ")
 	if err != nil {
 		return err
 	}
