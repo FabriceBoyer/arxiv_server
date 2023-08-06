@@ -52,7 +52,7 @@ func handleSearch(w http.ResponseWriter, r *http.Request) error {
 }
 
 func handlePage(w http.ResponseWriter, r *http.Request) error {
-	id := r.URL.Query().Get("page")
+	id := r.URL.Query().Get("arxiv")
 
 	elm, err := mgr.GetIndexedArxivMetadata(id)
 	if err != nil {

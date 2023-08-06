@@ -174,6 +174,9 @@ func (mgr *ArxivMetadataManager) readArxivMetadataIndex() error {
 	for fileScanner.Scan() {
 		line := fileScanner.Text()
 		parts := strings.Split(line, indexSeparator)
+		if len(parts) != 2 {
+			return fmt.Errorf("expected exactly 2 parts in index, got: [%s]", parts)
+		}
 		seek, err := strconv.ParseInt(parts[0], 10, 64)
 		if err != nil {
 			return err
