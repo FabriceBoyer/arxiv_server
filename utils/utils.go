@@ -22,7 +22,7 @@ func ErrorHandler(f func(w http.ResponseWriter, r *http.Request) error) http.Han
 			if cause, ok := cause.(statusError); ok {
 				status = int(cause)
 			}
-
+			fmt.Print(err)
 			w.WriteHeader(status)
 		}
 	}
