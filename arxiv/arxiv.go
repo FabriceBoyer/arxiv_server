@@ -176,13 +176,14 @@ func (mgr *ArxivMetadataManager) readArxivMetadataIndex() error {
 		parts := strings.Split(line, indexSeparator)
 		if len(parts) != 2 {
 			return fmt.Errorf("expected exactly 2 parts in index, got: [%s]", parts)
+		} else {
+			seek, err := strconv.ParseInt(parts[0], 10, 64)
+			if err != nil {
+				return err
+			}
+			id := parts[1]
+			mgr.index[id] = seek
 		}
-		seek, err := strconv.ParseInt(parts[0], 10, 64)
-		if err != nil {
-			return err
-		}
-		id := parts[1]
-		mgr.index[id] = seek
 	}
 
 	return nil
