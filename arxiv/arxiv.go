@@ -1,6 +1,7 @@
 package arxiv
 
 import (
+	"arxiv_server/utils"
 	"bufio"
 	"encoding/json"
 	"fmt"
@@ -241,4 +242,13 @@ func (mgr *ArxivMetadataManager) SearchArxivMetadata(limit int, filt filter) ([]
 	fmt.Printf("Parsing the file took [%v]\n", elapsed)
 
 	return res, i, nil
+}
+
+func (mgr *ArxivMetadataManager) getRandomArxivIds(count int) (*[]string, error) {
+
+	keys := utils.GetMapKeys(&mgr.index)
+	res := utils.GetRandomSample(keys, count)
+
+	return &res, nil
+
 }

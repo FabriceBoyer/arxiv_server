@@ -2,8 +2,10 @@ package utils
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -33,4 +35,22 @@ func GetEnv(key, fallback string) string {
 		return value
 	}
 	return fallback
+}
+
+func GetRandomSample(source *[]string, n int) []string {
+	s := *source
+	rand.Seed(time.Now().UnixNano())
+	if n > len(s) {
+		n = len(s) - 1
+	}
+	rand.Shuffle(len(s), func(i, j int) { s[i], s[j] = s[j], s[i] })
+	return s[:n]
+}
+
+func GetMapKeys(m *map[string]int64) *[]string {
+	keys := make([]string, 0, len(*m))
+	for key := range *m {
+		keys = append(keys, key)
+	}
+	return &keys
 }

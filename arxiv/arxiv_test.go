@@ -12,8 +12,9 @@ import (
 )
 
 func newArxivManager() ArxivMetadataManager {
-	return ArxivMetadataManager{Root_path: utils.GetEnv("DUMP_PATH", "./dump/")}
+	return ArxivMetadataManager{Root_path: utils.GetEnv("DUMP_PATH", "E:/data/arxiv_dump")}
 }
+
 func TestArxivMetadataSearch(t *testing.T) {
 	mgr := newArxivManager()
 	res, n, err := mgr.SearchArxivMetadata(1e4,
@@ -61,4 +62,40 @@ func TestGetIndexedArxivMetadata(t *testing.T) {
 	}
 	assert.Contains(t, elm.Authors, "Kuhlen")
 	fmt.Printf("%v\n", string(val))
+}
+
+func BenchmarkGetIndexedArxivMetadata(b *testing.B) {
+	mgr := newArxivManager()
+	err := mgr.InitializeManager()
+	if err != nil {
+		b.Error(err)
+	}
+
+	randIds, err := mgr.getRandomArxivIds(100000)
+	if err != nil {
+		b.Error(err)
+	}
+	b.Logf("Generated %d random ids\n", len(*randIds))
+
+	for _, id := range *randIds {
+		elm, err := mgr.GetIndexedArxivMetadata(id)
+		if err != nil {
+			b.Error(err)
+		}
+		assert.Equal(b, elm.Id, id)
+		//b.Logf("%s\n", elm.Id)
+	}
+}
+
+func TestGetRandomArxivIds(t *testing.T) {
+	mgr := newArxivManager()
+	err := mgr.InitializeManager()
+	if err != nil {
+		t.Error(err)
+	}
+	ids, err := mgr.getRandomArxivIds(1000)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Printf("%v\n", ids)
 }
