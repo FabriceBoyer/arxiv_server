@@ -29,6 +29,7 @@ jobs:
         with:
           repository: fabriceboyer/common_go_utils
           token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: common_go_utils
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
