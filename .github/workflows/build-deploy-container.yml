@@ -20,18 +20,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          path: ${{ github.event.repository.name}}
 
       - name: Access to Go private modules
         run: git config --global url.https://$GH_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
-
-      - name: Check out fabriceboyer/common_go_utils
-        uses: actions/checkout@v3
-        with:
-          repository: fabriceboyer/common_go_utils
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          path: common_go_utils
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
@@ -52,8 +43,10 @@ jobs:
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
+        env:
+          GO111MODULE: on # to ignore go.mode local replace
         with:
-          context: ${{ github.event.repository.name}}
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
