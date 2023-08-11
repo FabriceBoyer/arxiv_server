@@ -1,8 +1,8 @@
 package arxiv
 
 import (
-	"arxiv_server/utils"
 	"bufio"
+	"common_go_utils/utils"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -251,4 +251,12 @@ func (mgr *ArxivMetadataManager) getRandomArxivIds(count int) (*[]string, error)
 
 	return &res, nil
 
+}
+
+func GetMapKeys(m *map[string]int64) *[]string {
+	keys := make([]string, 0, len(*m))
+	for key := range *m {
+		keys = append(keys, key)
+	}
+	return &keys
 }

@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"arxiv_server/arxiv"
-	"arxiv_server/utils"
+	"common_go_utils/utils"
 
 	"github.com/gorilla/mux"
 )

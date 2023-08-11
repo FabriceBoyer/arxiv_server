@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"arxiv_server/utils"
+	"common_go_utils/utils"
 
 	"github.com/stretchr/testify/assert"
 )
