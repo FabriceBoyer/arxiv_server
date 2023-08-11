@@ -2,11 +2,11 @@ module arxiv_server
 
 go 1.20
 
-replace github.com/fabriceboyer/common_go_utils => ../common_go_utils
+// replace github.com/fabriceboyer/common_go_utils => ../common_go_utils
 
 require (
 	github.com/dustin/go-humanize v1.0.1
-	github.com/fabriceboyer/common_go_utils v0.0.0-00010101000000-000000000000
+	github.com/fabriceboyer/common_go_utils v0.0.0-20230811195032-dbdbf9b5e130
 	github.com/gorilla/mux v1.8.0
 	github.com/stretchr/testify v1.8.3
 )
