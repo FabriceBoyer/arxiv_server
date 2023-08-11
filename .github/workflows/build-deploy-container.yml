@@ -10,6 +10,8 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  GOPRIVATE: github.com/FabriceBoyer/common_go_utils
+  GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
 
 jobs:
   build-and-deploy:
@@ -34,6 +36,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Access to Go private modules
+        run: git config --global url.https://$GH_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
