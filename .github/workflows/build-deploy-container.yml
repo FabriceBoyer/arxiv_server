@@ -53,7 +53,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ${{ github.event.repository.name}}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
