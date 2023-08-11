@@ -246,14 +246,15 @@ func (mgr *ArxivMetadataManager) SearchArxivMetadata(limit int, filt filter) ([]
 
 func (mgr *ArxivMetadataManager) getRandomArxivIds(count int) (*[]string, error) {
 
-	keys := utils.GetMapKeys(&mgr.index)
-	res := utils.GetRandomSample(keys, count)
+	keys := mgr.GetMapKeys()
+	res := utils.GetRandomSample(*keys, count)
 
 	return &res, nil
 
 }
 
-func GetMapKeys(m *map[string]int64) *[]string {
+func (mgr *ArxivMetadataManager) GetMapKeys() *[]string {
+	m := &mgr.index
 	keys := make([]string, 0, len(*m))
 	for key := range *m {
 		keys = append(keys, key)
