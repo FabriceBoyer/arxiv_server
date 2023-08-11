@@ -2,7 +2,6 @@ package arxiv
 
 import (
 	"bufio"
-	"common_go_utils/utils"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -12,6 +11,7 @@ import (
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/fabriceboyer/common_go_utils/utils"
 )
 
 // TODO use bzip2 version instead

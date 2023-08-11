@@ -10,7 +10,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  GOPRIVATE: github.com/FabriceBoyer/common_go_utils
+  GOPRIVATE: github.com/fabriceboyer/common_go_utils
   GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
 
 jobs:
@@ -20,6 +20,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Access to Go private modules
+        run: git config --global url.https://$GH_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
+
+      - name: Check out fabriceboyer/common_go_utils
+        uses: actions/checkout@v3
+        with:
+          repository: fabriceboyer/common_go_utils
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
@@ -37,8 +46,6 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Access to Go private modules
-        run: git config --global url.https://$GH_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
