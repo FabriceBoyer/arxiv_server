@@ -7,12 +7,13 @@ import (
 	"testing"
 
 	"github.com/fabriceboyer/common_go_utils/utils"
-
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
 
 func newArxivManager() ArxivMetadataManager {
-	return ArxivMetadataManager{Root_path: utils.GetEnv("DUMP_PATH", "E:/data/arxiv_dump")}
+	utils.SetupConfig()
+	return ArxivMetadataManager{Root_path: viper.GetString("DUMP_PATH")}
 }
 
 func TestArxivMetadataSearch(t *testing.T) {

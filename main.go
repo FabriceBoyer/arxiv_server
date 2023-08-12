@@ -7,17 +7,26 @@ import (
 	"net/http"
 
 	"github.com/fabriceboyer/arxiv_server/arxiv"
+	"github.com/spf13/viper"
 
 	"github.com/fabriceboyer/common_go_utils/utils"
 	"github.com/gorilla/mux"
 )
 
-var root_path = utils.GetEnv("DUMP_PATH", "./dump/")
-
-var mgr = arxiv.ArxivMetadataManager{Root_path: root_path}
+var mgr = arxiv.ArxivMetadataManager{}
 
 func main() {
-	err := mgr.InitializeManager()
+
+	err := utils.SetupConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	rootPath := viper.GetString("DUMP_PATH")
+	mgr.Root_path = rootPath
+	fmt.Printf("Root path: %s\n", rootPath)
+
+	err = mgr.InitializeManager()
 	if err != nil {
 		panic(err)
 	}
