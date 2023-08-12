@@ -14,6 +14,8 @@ FROM scratch
 
 COPY --from=builder /arxiv_server /
 COPY ./static /static
+COPY ./.env.example /.env
+
 CMD [ "/arxiv_server" ]
 
 

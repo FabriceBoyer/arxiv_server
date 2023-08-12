@@ -10,5 +10,4 @@ services:
             - 9097:9097
         volumes:
             - $DUMP_PATH:/dump
-            - ./.env.docker:/.env
 
