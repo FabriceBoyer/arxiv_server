@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"arxiv_server/arxiv"
+	"github.com/fabriceboyer/arxiv_server/arxiv"
 
 	"github.com/fabriceboyer/common_go_utils/utils"
 	"github.com/gorilla/mux"

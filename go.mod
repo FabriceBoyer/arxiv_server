@@ -1,4 +1,4 @@
-module arxiv_server
+module github.com/fabriceboyer/arxiv_server
 
 go 1.21
 
