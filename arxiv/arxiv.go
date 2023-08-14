@@ -74,9 +74,10 @@ func (mgr *ArxivMetadataManager) InitializeManager() error {
 		if err != nil {
 			return err
 		}
-	} else {
-		fmt.Print("Reusing existing file index\n")
 	}
+	// else {
+	// 	fmt.Print("Reusing existing file index\n")
+	// }
 	err = mgr.readArxivMetadataIndex()
 	if err != nil {
 		return err
@@ -161,7 +162,7 @@ func (mgr *ArxivMetadataManager) getArxivMetadaFromSeekPosition(seek int64) (*Ar
 }
 
 func (mgr *ArxivMetadataManager) readArxivMetadataIndex() error {
-	fmt.Print("Reading index file\n")
+	//fmt.Print("Reading index file\n")
 	mgr.index = make(map[string]int64)
 	readFile, err := os.Open(path.Join(mgr.Root_path, indexFileName))
 	if err != nil {
