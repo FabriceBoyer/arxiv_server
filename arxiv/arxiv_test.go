@@ -76,9 +76,9 @@ func BenchmarkGetIndexedArxivMetadata(b *testing.B) {
 	if err != nil {
 		b.Error(err)
 	}
-	b.Logf("Generated %d random ids\n", len(*randIds))
+	b.Logf("Generated %d random ids\n", len(randIds))
 
-	for _, id := range *randIds {
+	for _, id := range randIds {
 		elm, err := mgr.GetIndexedArxivMetadata(id)
 		if err != nil {
 			b.Error(err)
