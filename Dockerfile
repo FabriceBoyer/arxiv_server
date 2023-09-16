@@ -35,12 +35,12 @@ RUN adduser \
     appuser
 USER appuser
 
-COPY --from=build /bin/server /bin/
-COPY ./static /bin/static
-COPY ./.env.example /bin/.env
+COPY --from=build /bin/server /
+COPY ./static /static
+COPY ./.env.example /.env
 
 EXPOSE 9097
 
-ENTRYPOINT [ "/bin/server" ]
+ENTRYPOINT [ "/server" ]
 
 

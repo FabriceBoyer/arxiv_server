@@ -12,5 +12,5 @@ services:
             - 127.0.0.1:9097:9097
         volumes:
             - $DUMP_PATH:/dump
-            # - ./static:/bin/static # debug only
+            # - ./static:/static # debug only
 
