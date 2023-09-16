@@ -1,25 +1,46 @@
 ARG GO_VERSION=1.21
+FROM golang:${GO_VERSION} AS build
+WORKDIR /src
 
-FROM golang:${GO_VERSION}-alpine as builder
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,source=go.sum,target=go.sum \
+    --mount=type=bind,source=go.mod,target=go.mod \
+    go mod download -x
 
-WORKDIR /app
-
-COPY go.* ./
-RUN go mod download
-
-COPY *.go ./
-COPY ./arxiv ./arxiv
-RUN go build -v -o /arxiv_server
+RUN --mount=type=cache,target=/go/pkg/mod/ \
+    --mount=type=bind,target=. \
+    CGO_ENABLED=0 go build -o /bin/server .
 
 #################################################
 
 # FROM scratch
-FROM gcr.io/distroless/static AS final
+# FROM gcr.io/distroless/static AS final
+FROM alpine:latest AS final
 
-COPY --from=builder /arxiv_server /
-COPY ./static /static
-COPY ./.env.example /.env
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk --update add \
+    ca-certificates \
+    tzdata \
+    && \
+    update-ca-certificates
 
-CMD [ "/arxiv_server" ]
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
+USER appuser
+
+COPY --from=build /bin/server /bin/
+COPY ./static /bin/static
+COPY ./.env.example /bin/.env
+
+EXPOSE 9097
+
+ENTRYPOINT [ "/bin/server" ]
 
 
