@@ -42,5 +42,3 @@ COPY ./.env.example /.env
 EXPOSE 9097
 
 ENTRYPOINT [ "/server" ]
-
-
