@@ -17,7 +17,7 @@ var mgr = arxiv.ArxivMetadataManager{}
 
 func main() {
 
-	err := utils.SetupConfig()
+	err := utils.SetupConfigPath(".")
 	if err != nil {
 		panic(err)
 	}

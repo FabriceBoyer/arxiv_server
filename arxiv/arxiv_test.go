@@ -12,7 +12,7 @@ import (
 )
 
 func newArxivManager() ArxivMetadataManager {
-	utils.SetupConfig()
+	utils.SetupTestConfig()
 	return ArxivMetadataManager{Root_path: viper.GetString("DUMP_PATH")}
 }
 
