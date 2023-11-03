@@ -141,7 +141,7 @@ func (mgr *ArxivMetadataManager) GetIndexedArxivMetadata(id string) (*ArxivMetad
 }
 
 func (mgr *ArxivMetadataManager) getArxivMetadaFromSeekPosition(seek int64) (*ArxivMetadata, error) {
-	f, err := os.Open(path.Join(mgr.Root_path, dataFileName))
+	f, err := os.Open(path.Join(mgr.Root_path, dataFileName)) // TODO don't do it on every call, keep it in cache
 	if err != nil {
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func (mgr *ArxivMetadataManager) SearchArxivMetadata(limit int, filt filter) ([]
 	i := 0
 	start := time.Now()
 
-	f, err := os.Open(path.Join(mgr.Root_path, dataFileName))
+	f, err := os.Open(path.Join(mgr.Root_path, dataFileName)) // TODO don't do it on every call, keep it in cache
 	if err != nil {
 		return res, i, err
 	}
