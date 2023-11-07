@@ -7,7 +7,7 @@ go 1.21
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fabriceboyer/common_go_utils v1.0.1
-	github.com/gorilla/mux v1.8.0
+	github.com/gorilla/mux v1.8.1
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/testify v1.8.4
 )
